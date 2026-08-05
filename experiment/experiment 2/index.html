@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billing Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Billing Calculator</h1>
+    <p>Enter item details to calculate subtotal, tax, and total.</p>
+
+    <form id="billingForm">
+      <label>
+        Customer Name
+        <input type="text" id="customerName" placeholder="Jane Doe" required />
+      </label>
+
+      <fieldset class="product-list">
+        <legend>Products</legend>
+        <div id="productsContainer" class="product-row">
+          <label>
+            Item Description
+            <input type="text" class="productDescription" placeholder="Notebook" required />
+          </label>
+
+          <label>
+            Price per Item ($)
+            <input type="number" class="productPrice" min="0" step="0.01" value="12.50" required />
+          </label>
+
+          <label>
+            Quantity
+            <input type="number" class="productQuantity" min="1" step="1" value="1" required />
+          </label>
+        </div>
+      </fieldset>
+
+      <button type="button" id="addProductButton">Add another product</button>
+
+      <label>
+        Tax Rate (%)
+        <input type="number" id="taxRate" min="0" step="0.1" value="7.5" required />
+      </label>
+
+      <button type="submit">Calculate</button>
+    </form>
+
+    <section id="result" class="result hidden">
+      <h2>Billing Summary</h2>
+      <p id="summaryText"></p>
+      <ul>
+        <li>Subtotal: <span id="subtotalValue"></span></li>
+        <li>Tax: <span id="taxValue"></span></li>
+        <li>Total: <span id="totalValue"></span></li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
