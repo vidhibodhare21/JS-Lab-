@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Grading System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <h1>Student Grading System</h1>
+      <p>Enter your name and marks to calculate the final grade.</p>
+
+      <form id="gradeForm" novalidate>
+        <label>
+          Student Name
+          <input type="text" id="studentName" placeholder="Type your name" required />
+        </label>
+
+        <label>
+          Mathematics
+          <input type="number" id="math" min="0" max="100" placeholder="0-100" required />
+        </label>
+
+        <label>
+          Science
+          <input type="number" id="science" min="0" max="100" placeholder="0-100" required />
+        </label>
+
+        <label>
+          English
+          <input type="number" id="english" min="0" max="100" placeholder="0-100" required />
+        </label>
+
+        <button type="submit">Calculate Grade</button>
+      </form>
+
+      <div id="result" class="result hidden"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
