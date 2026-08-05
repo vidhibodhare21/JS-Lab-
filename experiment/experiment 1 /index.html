@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Welcome Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f9ff;
+      color: #1f3b5b;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(31, 59, 91, 0.12);
+      padding: 32px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    p {
+      line-height: 1.5;
+      margin: 16px 0;
+    }
+
+    .user-info {
+      text-align: left;
+      background: #eef7ff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+    }
+
+    .user-info div {
+      margin-bottom: 10px;
+      font-size: 0.96rem;
+    }
+
+    .label {
+      font-weight: 700;
+      color: #34567a;
+    }
+  </style>
+  <script>
+    // Internal JavaScript: runs inside the HTML <head>
+    console.log('Internal JS: page is preparing to load.');
+  </script>
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome to Your Page</h1>
+    <p id="welcomeMessage">Hello! We’re getting your user details ready.</p>
+
+    <div class="user-info" id="userInfo">
+      <!-- User info will be inserted by external script -->
+      <div><span class="label">Name:</span> <span id="userName">Loading...</span></div>
+      <div><span class="label">Email:</span> <span id="userEmail">Loading...</span></div>
+      <div><span class="label">Role:</span> <span id="userRole">Loading...</span></div>
+    </div>
+
+    <button onclick="showInlineMessage()">Show Inline Message</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
