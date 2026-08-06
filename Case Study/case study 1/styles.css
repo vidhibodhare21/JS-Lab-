@@ -1,0 +1,78 @@
+:root {
+  --base-bg: #f5e9d9;
+  --card-bg: #fff5eb;
+  --text-color: #333;
+  --accent-color: #9b6f4b;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--base-bg);
+  color: var(--text-color);
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  color: var(--accent-color);
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #5f4b38;
+}
+
+.content-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.content-card h2 {
+  margin-top: 0;
+  color: #6a4b32;
+}
+
+.content-card p {
+  line-height: 1.65;
+}
+
+.button-link {
+  display: inline-block;
+  margin-top: 18px;
+  background: var(--accent-color);
+  color: white;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+thead th {
+  text-align: left;
+  padding: 12px 10px;
+  background: #efd7c5;
+}
+
+tbody td {
+  padding: 12px 10px;
+  border-top: 1px solid #e5d1c3;
+}
