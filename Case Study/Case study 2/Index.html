@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Shopping Billing Page</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Online Shopping Bill</h1>
+      <p class="subtitle">Simple billing page for your online store</p>
+
+      <form id="billForm" class="bill-form">
+        <div class="grid">
+          <label>
+            Customer Name
+            <input type="text" id="customerName" placeholder="Enter customer name" required />
+          </label>
+
+          <label>
+            Mobile No.
+            <input type="tel" id="mobile" placeholder="Enter mobile number" required />
+          </label>
+
+          <label>
+            Invoice No.
+            <input type="text" id="invoiceNo" placeholder="INV-001" required />
+          </label>
+        </div>
+
+        <div class="products-section">
+          <div class="section-heading">
+            <h2>Products</h2>
+            <button type="button" id="addProductBtn" class="secondary-btn">+ Add Product</button>
+          </div>
+          <div id="productRows"></div>
+        </div>
+
+        <div class="grid">
+          <label>
+            Discount (%)
+            <input type="number" id="discount" min="0" step="0.01" value="0" />
+          </label>
+
+          <label>
+            GST (%)
+            <input type="number" id="gst" min="0" step="0.01" value="5" />
+          </label>
+
+          <label>
+            Packing Charges (₹)
+            <input type="number" id="packing" min="0" step="0.01" value="0" />
+          </label>
+
+          <label>
+            Payment Mode
+            <select id="paymentMode">
+              <option value="Cash">Cash</option>
+              <option value="Card">Card</option>
+              <option value="UPI">UPI</option>
+            </select>
+          </label>
+
+          <div class="membership-block">
+            <span>Membership</span>
+            <div class="radio-group">
+              <label><input type="radio" name="membership" value="Yes" checked /> Yes</label>
+              <label><input type="radio" name="membership" value="No" /> No</label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit">Calculate Bill</button>
+      </form>
+
+      <div id="result" class="result-card" aria-live="polite">
+        <h2>Invoice Summary</h2>
+        <p>Fill the form to generate the bill.</p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
