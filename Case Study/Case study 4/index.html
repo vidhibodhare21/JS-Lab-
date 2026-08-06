@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATM PIN Palindrome Check</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="atm-card">
+      <h1>ATM PIN Security Check</h1>
+      <p class="subtitle">Enter a PIN to see whether it is a palindrome.</p>
+
+      <label for="pin">Enter PIN</label>
+      <input id="pin" type="password" maxlength="8" placeholder="e.g. 121" />
+
+      <button id="verifyBtn">Verify PIN</button>
+
+      <div id="result" class="result-box" aria-live="polite"></div>
+
+      <section class="demo-info">
+        <h2>Concepts used</h2>
+        <ul>
+          <li><strong>Function declaration:</strong> reverses the PIN.</li>
+          <li><strong>Function expression:</strong> checks the palindrome condition.</li>
+          <li><strong>Arrow function:</strong> updates the UI message.</li>
+          <li><strong>Closure:</strong> the inner function remembers a security message from its outer scope.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
