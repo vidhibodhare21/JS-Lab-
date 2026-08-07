@@ -1,0 +1,164 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5e8d0;
+  color: #4b3a2a;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.panel {
+  background: #fff8ec;
+  border: 1px solid #e2cfae;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 12px rgba(75, 58, 42, 0.08);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ead8b8;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  background: #a97c4f;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 18px;
+}
+
+.remove-btn {
+  background: #7c5f3d;
+}
+
+.coupon-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.customer-card {
+  background: #f7e9c9;
+  border: 1px solid #e3c999;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.customer-info p {
+  margin: 4px 0;
+}
+
+.add-item-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.add-item-form input:nth-child(3),
+.add-item-form button {
+  grid-column: span 2;
+}
+
+input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #d4b889;
+  border-radius: 8px;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #ead8b8;
+}
+
+.total {
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-bottom: none;
+  margin-top: 6px;
+}
+
+.empty {
+  color: #8b6d47;
+  padding: 8px 0;
+}
+
+@media (max-width: 700px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .add-item-form {
+    grid-template-columns: 1fr;
+  }
+
+  .add-item-form input:nth-child(3),
+  .add-item-form button {
+    grid-column: span 1;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
