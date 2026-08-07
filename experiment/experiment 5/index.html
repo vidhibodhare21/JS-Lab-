@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart Total Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Cart Total Calculator</h1>
+        <p>Simple cart demo using object data and array methods.</p>
+      </header>
+
+      <main class="layout">
+        <section class="panel">
+          <h2>Customer Details</h2>
+          <div class="customer-card">
+            <div class="customer-info">
+              <p><strong>Name:</strong> <span id="customer-name">Vidhi Bodhare</span></p>
+              <p><strong>Phone:</strong> <span id="customer-phone">9322046769</span></p>
+              <p><strong>Address:</strong> <span id="customer-address">Nagpur</span></p>
+              <p><strong>PRN:</strong> <span id="customer-prn">24070521205</span></p>
+            </div>
+          </div>
+
+          <h2>Your Cart</h2>
+          <form id="add-item-form" class="add-item-form">
+            <input id="item-name" type="text" placeholder="Item name" required />
+            <input id="item-price" type="number" min="1" placeholder="Price" required />
+            <input id="item-quantity" type="number" min="1" value="1" required />
+            <button type="submit">Add Item</button>
+          </form>
+          <div id="cart-items"></div>
+        </section>
+
+        <aside class="panel summary">
+          <h2>Order Summary</h2>
+          <div class="coupon-row">
+            <input id="coupon" type="text" placeholder="Enter coupon" />
+            <button id="apply-coupon">Apply</button>
+          </div>
+          <div class="summary-line">
+            <span>Items</span>
+            <span id="item-count">0</span>
+          </div>
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <span id="subtotal">₹0</span>
+          </div>
+          <div class="summary-line">
+            <span>Discount</span>
+            <span id="discount">₹0</span>
+          </div>
+          <div class="summary-line total">
+            <span>Total</span>
+            <span id="total">₹0</span>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
