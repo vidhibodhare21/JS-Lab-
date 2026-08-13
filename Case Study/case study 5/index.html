@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array & Loop Neon Studio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="screen">
+      <div class="studio">
+        <h1>ARRAY &amp; LOOP NEON STUDIO</h1>
+
+        <div class="panel">
+          <div class="panel-title">
+            Mutations &amp; Operations
+            <span class="caret">▌</span>
+          </div>
+
+          <div class="input-wrapper">
+            <input id="valueInput" type="text" value="240705211197" />
+            <div class="arrow-box">⌃</div>
+          </div>
+
+          <div class="button-row">
+            <button class="action-btn" data-action="push">Push</button>
+            <button class="action-btn" data-action="pop">Pop</button>
+            <button class="action-btn" data-action="unshift">Unshift</button>
+            <button class="action-btn" data-action="splice">Splice</button>
+          </div>
+
+          <div class="array-display">
+            Array: <span id="arrayDisplay">[100, 30, 25, 22]</span>
+          </div>
+
+          <button id="findMaxMinBtn" class="primary-btn">Find Max &amp; Min</button>
+
+          <div id="resultText" class="result-text">Max: 100 &amp; Min: 22</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
