@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript String Lab</title>
+  <style>
+    :root {
+      --ink: #2f3542;
+      --muted: #697386;
+      --paper: #fffdf8;
+      --lavender: #eee8ff;
+      --blue: #e2f3ff;
+      --peach: #ffe9dc;
+      --mint: #e3f7ed;
+      --yellow: #fff4c7;
+      --line: #e7e4df;
+      --accent: #7557b7;
+      --shadow: 0 12px 28px rgba(76, 68, 94, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #f8f5f1;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    .page {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 56px;
+    }
+
+    header {
+      margin-bottom: 28px;
+      padding: 28px 32px;
+      background: var(--lavender);
+      border: 1px solid #ddd4f7;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 { margin-top: 0; }
+    h1 { margin-bottom: 8px; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.05; }
+    h2 { margin-bottom: 4px; font-size: 1.4rem; }
+    h3 { margin-bottom: 12px; font-size: 1.05rem; }
+    p { margin: 0; color: var(--muted); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .numbers { background: var(--blue); }
+    .basics { background: var(--peach); }
+    .strings { background: var(--mint); }
+    .case-study { background: var(--yellow); }
+
+    .panel-heading { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 7px; font-size: 0.9rem; font-weight: 700; }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid #d8d6d2;
+      border-radius: 9px;
+      padding: 11px 12px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.8);
+      font: inherit;
+    }
+
+    textarea { min-height: 118px; resize: vertical; }
+    input:focus, textarea:focus { outline: 3px solid rgba(117, 87, 183, 0.2); border-color: var(--accent); }
+
+    .form-row { display: flex; gap: 10px; margin-bottom: 14px; }
+    .form-row input { flex: 1; }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 15px;
+      color: #fff;
+      background: var(--accent);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover { filter: brightness(1.07); }
+    button:focus-visible { outline: 3px solid rgba(117, 87, 183, 0.3); outline-offset: 2px; }
+
+    .number-list {
+      min-height: 25px;
+      margin: 16px 0;
+      color: var(--muted);
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .result {
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .result span { display: block; color: var(--muted); font-size: 0.82rem; }
+    .result strong { display: block; margin-top: 2px; font-size: 1.45rem; }
+
+    .output {
+      min-height: 46px;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.58);
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .operation { margin-top: 16px; }
+    .operation:first-of-type { margin-top: 0; }
+    .operation-title { margin-bottom: 5px; font-size: 0.86rem; font-weight: 700; }
+
+    .case-study { grid-column: 1 / -1; }
+    .case-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .case-actions .output { margin-top: 10px; }
+
+    footer { margin-top: 24px; color: var(--muted); font-size: 0.88rem; text-align: center; }
+
+    @media (max-width: 720px) {
+      .page { width: min(100% - 20px, 560px); padding-top: 20px; }
+      header, .panel { padding: 20px; }
+      .grid, .case-actions { grid-template-columns: 1fr; }
+      .case-study { grid-column: auto; }
+      .form-row { flex-direction: column; }
+      .form-row button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <p class="eyebrow">Case Study 6</p>
+      <h1>JavaScript String Lab</h1>
+      <p>Practice arrays, basic string operations, and two useful case studies.</p>
+    </header>
+
+    <section class="grid">
+      <article class="panel numbers">
+        <div class="panel-heading">
+          <h2>Array of Numbers</h2>
+          <p>Enter numbers separated by commas to find the maximum and minimum.</p>
+        </div>
+        <label for="numbersInput">Numbers</label>
+        <div class="form-row">
+          <input id="numbersInput" value="12, 5, 28, 3, 17" placeholder="e.g. 12, 5, 28, 3">
+          <button id="numbersButton">Find values</button>
+        </div>
+        <div id="numbersList" class="number-list" aria-live="polite"></div>
+        <div class="result-grid">
+          <div class="result"><span>Maximum</span><strong id="maximumValue">-</strong></div>
+          <div class="result"><span>Minimum</span><strong id="minimumValue">-</strong></div>
+        </div>
+      </article>
+
+      <article class="panel basics">
+        <div class="panel-heading">
+          <h2>Basics of String</h2>
+          <p>Try common properties and methods on a string.</p>
+        </div>
+        <label for="basicString">String</label>
+        <input id="basicString" value="Hello JavaScript">
+        <div id="basicOutput" class="output" aria-live="polite"></div>
+      </article>
+
+      <article class="panel strings">
+        <div class="panel-heading">
+          <h2>Work with Strings</h2>
+          <p>Use substring(), indexOf(), split(), and replace().</p>
+        </div>
+        <label for="workingString">String</label>
+        <input id="workingString" value="Learn JavaScript today">
+        <div id="workingOutput" class="output" aria-live="polite"></div>
+      </article>
+
+      <article class="panel case-study">
+        <div class="panel-heading">
+          <h2>Case Study</h2>
+          <p>Reverse a string and count vowels in a paragraph.</p>
+        </div>
+        <div class="case-actions">
+          <div>
+            <label for="reverseInput">String to reverse</label>
+            <div class="form-row">
+              <input id="reverseInput" value="JavaScript">
+              <button id="reverseButton">Reverse</button>
+            </div>
+            <div id="reverseOutput" class="output" aria-live="polite"></div>
+          </div>
+          <div>
+            <label for="paragraphInput">Paragraph</label>
+            <textarea id="paragraphInput">JavaScript makes it possible to build interactive web pages.</textarea>
+            <button id="vowelsButton">Count vowels</button>
+            <div id="vowelsOutput" class="output" aria-live="polite"></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer>All examples run directly in your browser using JavaScript.</footer>
+  </main>
+
+  <script>
+    const numbersInput = document.querySelector('#numbersInput');
+    const numbersList = document.querySelector('#numbersList');
+    const maximumValue = document.querySelector('#maximumValue');
+    const minimumValue = document.querySelector('#minimumValue');
+
+    function findArrayValues() {
+      const values = numbersInput.value
+        .split(',')
+        .map((value) => Number(value.trim()))
+        .filter((value) => Number.isFinite(value));
+
+      if (values.length === 0) {
+        numbersList.textContent = 'Please enter at least one valid number.';
+        maximumValue.textContent = '-';
+        minimumValue.textContent = '-';
+        return;
+      }
+
+      numbersList.textContent = `Array: [${values.join(', ')}]`;
+      maximumValue.textContent = Math.max(...values);
+      minimumValue.textContent = Math.min(...values);
+    }
+
+    function showBasicString() {
+      const value = document.querySelector('#basicString').value;
+      document.querySelector('#basicOutput').textContent =
+        `Length: ${value.length}\nUppercase: ${value.toUpperCase()}\nLowercase: ${value.toLowerCase()}`;
+    }
+
+    function showStringOperations() {
+      const value = document.querySelector('#workingString').value;
+      const firstWord = value.split(' ')[0] || '';
+      document.querySelector('#workingOutput').textContent =
+        `substring(0, 5): ${value.substring(0, 5)}\nindexOf("JavaScript"): ${value.indexOf('JavaScript')}\nsplit(" "): [${value.split(' ').join(', ')}]\nreplace("JavaScript", "JS"): ${value.replace('JavaScript', 'JS')}`;
+    }
+
+    function reverseString() {
+      const value = document.querySelector('#reverseInput').value;
+      document.querySelector('#reverseOutput').textContent = value.split('').reverse().join('');
+    }
+
+    function countVowels() {
+      const paragraph = document.querySelector('#paragraphInput').value;
+      const vowels = paragraph.match(/[aeiou]/gi) || [];
+      document.querySelector('#vowelsOutput').textContent = `Vowel count: ${vowels.length}`;
+    }
+
+    document.querySelector('#numbersButton').addEventListener('click', findArrayValues);
+    document.querySelector('#basicString').addEventListener('input', showBasicString);
+    document.querySelector('#workingString').addEventListener('input', showStringOperations);
+    document.querySelector('#reverseButton').addEventListener('click', reverseString);
+    document.querySelector('#vowelsButton').addEventListener('click', countVowels);
+
+    findArrayValues();
+    showBasicString();
+    showStringOperations();
+    reverseString();
+    countVowels();
+  </script>
+</body>
+</html>
