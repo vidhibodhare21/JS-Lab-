@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color: #253238;
+  background: #eef2f1;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+  padding: 3rem 1rem;
+}
+
+.app {
+  width: min(100%, 36rem);
+  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid #d8e0de;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(37, 50, 56, 0.08);
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.todo-form {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.todo-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem;
+  border: 1px solid #b9c7c4;
+  border-radius: 4px;
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 4px;
+  background: #176b5b;
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+button:hover,
+button:focus-visible {
+  background: #0f5347;
+}
+
+.todo-form input:focus-visible,
+button:focus-visible {
+  outline: 3px solid #9bd5c8;
+  outline-offset: 2px;
+}
+
+.todo-count {
+  margin: 1.5rem 0 0.75rem;
+  color: #63736f;
+  font-size: 0.9rem;
+}
+
+.todo-list {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #d8e0de;
+  border-radius: 4px;
+}
+
+.todo-item span {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
+.complete-checkbox {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #176b5b;
+  cursor: pointer;
+}
+
+.todo-item.completed span {
+  color: #71807c;
+  text-decoration: line-through;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.todo-actions button {
+  padding: 0.45rem 0.65rem;
+  background: #e7eeec;
+  color: #253238;
+  font-size: 0.9rem;
+}
+
+.todo-actions button:hover,
+.todo-actions button:focus-visible {
+  background: #d2dfdc;
+}
+
+.empty-state {
+  margin: 1rem 0 0;
+  color: #63736f;
+  text-align: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 30rem) {
+  .app {
+    padding: 1.25rem;
+  }
+
+  .todo-form {
+    flex-direction: column;
+  }
+}
