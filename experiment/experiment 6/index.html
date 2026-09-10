@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String Studio</title>
+  <style>
+    :root {
+      --paper: #f7f1e7;
+      --panel: #fffaf2;
+      --ink: #2f2a25;
+      --muted: #776e64;
+      --line: #ded2c2;
+      --accent: #9d5f3b;
+      --accent-soft: #efe0d0;
+      --success: #42705a;
+      --danger: #a34e45;
+      --shadow: 0 12px 35px rgba(78, 56, 35, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .shell {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 48px 0 56px;
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font: 700 0.72rem/1.2 Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, p { margin-top: 0; }
+    h1 { margin-bottom: 10px; font-size: clamp(2.25rem, 6vw, 4.8rem); font-weight: 400; line-height: 0.95; }
+    .intro { max-width: 530px; margin-bottom: 0; color: var(--muted); font-size: 1.05rem; line-height: 1.55; }
+
+    .count-badge {
+      flex: 0 0 auto;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      color: var(--accent);
+      font: 700 0.72rem Arial, sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    main { padding-top: 32px; }
+    .workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .card { padding: 24px; background: var(--panel); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .card-wide { grid-column: 1 / -1; }
+    h2 { margin-bottom: 7px; font-size: 1.55rem; font-weight: 400; }
+    .hint { min-height: 42px; margin-bottom: 18px; color: var(--muted); font: 0.83rem/1.5 Arial, sans-serif; }
+
+    label { display: block; margin-bottom: 8px; color: var(--muted); font: 700 0.72rem Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      outline: none;
+      color: var(--ink);
+      background: #fffdf9;
+      font: 1rem/1.5 Georgia, "Times New Roman", serif;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+    input { height: 48px; padding: 0 13px; }
+    textarea { min-height: 144px; padding: 13px; resize: vertical; }
+    input:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+    .button-row { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+    button {
+      border: 0;
+      border-radius: 2px;
+      padding: 12px 17px;
+      color: #fffaf2;
+      background: var(--accent);
+      cursor: pointer;
+      font: 700 0.78rem Arial, sans-serif;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    button:hover { background: #824a2e; }
+    .result { min-height: 20px; margin: 0; color: var(--muted); font: 0.88rem/1.4 Arial, sans-serif; }
+    .result.success { color: var(--success); }
+    .result.error { color: var(--danger); }
+
+    .extract-output { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+    .result-group { min-height: 86px; padding: 13px; background: var(--accent-soft); }
+    .result-group strong { display: block; margin-bottom: 7px; font: 700 0.7rem Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+    .result-group span { color: var(--muted); font: 0.86rem/1.45 Arial, sans-serif; word-break: break-word; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+    .stat { padding: 15px; border-top: 2px solid var(--accent); background: var(--accent-soft); }
+    .stat-value { display: block; margin-bottom: 5px; font-size: 1.8rem; }
+    .stat-label { color: var(--muted); font: 0.68rem Arial, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 28px, 560px); padding-top: 28px; }
+      header { display: block; }
+      .count-badge { display: inline-block; margin-top: 22px; }
+      .workspace { grid-template-columns: 1fr; }
+      .card-wide { grid-column: auto; }
+      .extract-output, .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">JavaScript · String Toolkit</p>
+        <h1>String Studio</h1>
+        <p class="intro">A small workbench for validating addresses, finding patterns, and making sense of text with string functions and regular expressions.</p>
+      </div>
+      <div class="count-badge">Three tools, one page</div>
+    </header>
+
+    <main>
+      <div class="workspace">
+        <section class="card">
+          <h2>Email validation</h2>
+          <p class="hint">Check whether an email follows a practical name@domain.tld pattern.</p>
+          <label for="email-input">Email address</label>
+          <input id="email-input" type="email" placeholder="name@example.com" autocomplete="email">
+          <div class="button-row">
+            <button id="validate-email" type="button">Validate</button>
+            <p id="email-result" class="result" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Data extraction</h2>
+          <p class="hint">Use regex to pull emails, web addresses, and hashtags from any text.</p>
+          <label for="extract-input">Source text</label>
+          <textarea id="extract-input" placeholder="Contact hello@example.com or visit example.com #javascript"></textarea>
+          <div class="button-row">
+            <button id="extract-data" type="button">Extract</button>
+          </div>
+          <div class="extract-output">
+            <div class="result-group"><strong>Emails</strong><span id="emails-found">None found</span></div>
+            <div class="result-group"><strong>URLs</strong><span id="urls-found">None found</span></div>
+            <div class="result-group"><strong>Hashtags</strong><span id="hashtags-found">None found</span></div>
+          </div>
+        </section>
+
+        <section class="card card-wide">
+          <h2>Text analysis</h2>
+          <p class="hint">Measure the writing with native string methods and a sentence-aware regex.</p>
+          <label for="analysis-input">Text to analyze</label>
+          <textarea id="analysis-input" placeholder="Paste a paragraph here. Every word and punctuation mark tells a small story."></textarea>
+          <div class="stats" aria-live="polite">
+            <div class="stat"><span id="word-count" class="stat-value">0</span><span class="stat-label">Words</span></div>
+            <div class="stat"><span id="character-count" class="stat-value">0</span><span class="stat-label">Characters</span></div>
+            <div class="stat"><span id="sentence-count" class="stat-value">0</span><span class="stat-label">Sentences</span></div>
+            <div class="stat"><span id="reading-time" class="stat-value">0m</span><span class="stat-label">Reading time</span></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const extractionPatterns = {
+      email: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi,
+      url: /(?:https?:\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:\/[^\s]*)?/gi,
+      hashtag: /#[a-z0-9_]+/gi
+    };
+
+    const emailInput = document.querySelector('#email-input');
+    const emailResult = document.querySelector('#email-result');
+    document.querySelector('#validate-email').addEventListener('click', () => {
+      const value = emailInput.value.trim();
+      emailResult.className = 'result ' + (emailPattern.test(value) ? 'success' : 'error');
+      emailResult.textContent = value && emailPattern.test(value) ? 'Valid email address.' : 'Please enter a valid email.';
+    });
+
+    function uniqueMatches(text, pattern) {
+      return [...new Set(text.match(pattern) || [])];
+    }
+
+    document.querySelector('#extract-data').addEventListener('click', () => {
+      const text = document.querySelector('#extract-input').value;
+      const emails = uniqueMatches(text, extractionPatterns.email);
+      const urls = uniqueMatches(text, extractionPatterns.url).filter((url) => !url.includes('@'));
+      const hashtags = uniqueMatches(text, extractionPatterns.hashtag);
+      document.querySelector('#emails-found').textContent = emails.join(', ') || 'None found';
+      document.querySelector('#urls-found').textContent = urls.join(', ') || 'None found';
+      document.querySelector('#hashtags-found').textContent = hashtags.join(', ') || 'None found';
+    });
+
+    function updateAnalysis() {
+      const text = document.querySelector('#analysis-input').value;
+      const words = text.match(/\b[\p{L}\p{N}]+(?:['-][\p{L}\p{N}]+)*\b/gu) || [];
+      const sentences = text.match(/[^.!?]+[.!?]+(?=\s|$)|[^.!?]+$/g) || [];
+      document.querySelector('#word-count').textContent = words.length;
+      document.querySelector('#character-count').textContent = text.length;
+      document.querySelector('#sentence-count').textContent = text.trim() ? sentences.length : 0;
+      document.querySelector('#reading-time').textContent = `${Math.max(0, Math.ceil(words.length / 200))}m`;
+    }
+
+    document.querySelector('#analysis-input').addEventListener('input', updateAnalysis);
+  </script>
+</body>
+</html>
