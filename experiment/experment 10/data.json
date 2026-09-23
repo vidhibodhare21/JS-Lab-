@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Vidhi Bodhare",
+    "prn": "24070521205",
+    "branch": "Btech(CSE)",
+    "cgpa": 7.5
+  },
+  {
+    "name": "Shubh Kamle",
+    "prn": "24070521159",
+    "branch": "Btech(CSE)",
+    "cgpa": 7.5
+  },
+  {
+    "name": "Krishna Shivhare",
+    "prn": "24070521246",
+    "branch": "Btech(CSE)",
+    "cgpa": 5.9
+  }
+]
