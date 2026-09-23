@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Table Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    :root {
+      --ink: #171512;
+      --ink-soft: #625c52;
+      --paper: #f4eee3;
+      --paper-deep: #e8ddcb;
+      --cream: #fffaf1;
+      --line: #d8cbb8;
+      --accent: #b99768;
+      --success: #476047;
+      --shadow: 0 20px 60px rgba(42, 31, 18, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 250, 241, 0.85), transparent 28%),
+        linear-gradient(135deg, #efe4d1 0%, var(--paper) 52%, #ded0bb 100%);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    .shell {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 64px 0 72px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--ink-soft);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1, h2 { font-family: "Space Grotesk", sans-serif; }
+
+    h1 {
+      max-width: 650px;
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+
+    .intro {
+      max-width: 580px;
+      margin: 22px 0 38px;
+      color: var(--ink-soft);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .workspace {
+      overflow: hidden;
+      border: 1px solid rgba(23, 21, 18, 0.12);
+      border-radius: 8px;
+      background: rgba(255, 250, 241, 0.75);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 250, 241, 0.76);
+    }
+
+    .toolbar h2 { margin: 0; font-size: 1.05rem; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    button {
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      padding: 10px 14px;
+      color: var(--cream);
+      background: var(--ink);
+      font: 600 0.83rem "DM Sans", sans-serif;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+    }
+
+    button:hover { transform: translateY(-2px); background: #3b352d; }
+    button.secondary { color: var(--ink); background: transparent; }
+    button.secondary:hover { color: var(--cream); }
+    button:disabled { cursor: wait; opacity: 0.55; transform: none; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 52px;
+      padding: 0 22px;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+    }
+
+    .status::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    .status.ready::before { background: var(--success); }
+    .status.error::before { background: #a34e3f; }
+
+    .table-wrap { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; min-width: 650px; }
+    th, td { padding: 16px 22px; border-top: 1px solid var(--line); text-align: left; }
+    th { color: var(--ink-soft); background: var(--paper-deep); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    td { font-size: 0.94rem; }
+    tbody tr { transition: background 160ms ease; }
+    tbody tr:hover { background: rgba(232, 221, 203, 0.42); }
+    .empty { padding: 42px 22px; color: var(--ink-soft); text-align: center; }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 24px, 1080px); padding-top: 36px; }
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      .actions, button { width: 100%; }
+      button { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <p class="eyebrow">Two APIs · One view</p>
+    <h1>Vidhi 24070521205</h1>
+    <p class="intro">Load the same local data with the modern Fetch API or jQuery's <code>$.getJSON()</code>, then inspect the results in a clean, responsive table.</p>
+
+    <section class="workspace" aria-labelledby="table-title">
+      <div class="toolbar">
+        <h2 id="table-title">Student directory</h2>
+        <div class="actions">
+          <button id="fetch-button" type="button">Load with fetch()</button>
+          <button id="jquery-button" class="secondary" type="button">Load with $.getJSON()</button>
+        </div>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite">Loading data with fetch()...</div>
+      <div class="table-wrap">
+        <table>
+          <thead id="table-head"></thead>
+          <tbody id="table-body">
+            <tr><td class="empty" colspan="4">Preparing your data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const dataUrl = "data.json";
+    const tableHead = document.querySelector("#table-head");
+    const tableBody = document.querySelector("#table-body");
+    const status = document.querySelector("#status");
+    const buttons = document.querySelectorAll("button");
+
+    function setLoading(message) {
+      status.className = "status";
+      status.textContent = message;
+      buttons.forEach((button) => { button.disabled = true; });
+    }
+
+    function setReady(message) {
+      status.className = "status ready";
+      status.textContent = message;
+      buttons.forEach((button) => { button.disabled = false; });
+    }
+
+    function setError(message) {
+      status.className = "status error";
+      status.textContent = message;
+      buttons.forEach((button) => { button.disabled = false; });
+      tableHead.innerHTML = "";
+      tableBody.innerHTML = `<tr><td class="empty" colspan="4">Unable to load the JSON file. Run this page through a local server.</td></tr>`;
+    }
+
+    function renderTable(rows) {
+      if (!rows.length) {
+        tableHead.innerHTML = "";
+        tableBody.innerHTML = `<tr><td class="empty" colspan="4">No records found.</td></tr>`;
+        return;
+      }
+
+      const columns = Object.keys(rows[0]);
+      tableHead.innerHTML = `<tr>${columns.map((column) => `<th scope="col">${column}</th>`).join("")}</tr>`;
+      tableBody.innerHTML = rows.map((row) => `
+        <tr>${columns.map((column) => `<td>${row[column]}</td>`).join("")}</tr>
+      `).join("");
+    }
+
+    async function loadWithFetch() {
+      setLoading("Loading data with fetch()...");
+      try {
+        const response = await fetch(dataUrl);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const rows = await response.json();
+        renderTable(rows);
+        setReady(`${rows.length} records loaded with fetch()`);
+      } catch (error) {
+        setError(`Fetch failed: ${error.message}`);
+      }
+    }
+
+    function loadWithJQuery() {
+      setLoading("Loading data with $.getJSON()...");
+      $.getJSON(dataUrl)
+        .done((rows) => {
+          renderTable(rows);
+          setReady(`${rows.length} records loaded with $.getJSON()`);
+        })
+        .fail((_request, _status, error) => {
+          setError(`jQuery request failed: ${error || "check the local server"}`);
+        });
+    }
+
+    document.querySelector("#fetch-button").addEventListener("click", loadWithFetch);
+    document.querySelector("#jquery-button").addEventListener("click", loadWithJQuery);
+    loadWithFetch();
+  </script>
+</body>
+</html>
