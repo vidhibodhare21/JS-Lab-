@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple saved preferences.">
+  <title>Preferences</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <strong class="brand">QUIET DESK</strong>
+      <span class="storage-status" id="storageStatus">Preferences ready</span>
+    </header>
+
+    <div class="page-grid">
+      <section class="preferences-column" aria-labelledby="pageTitle">
+        <div class="intro">
+          <p class="eyebrow">YOUR PREFERENCES</p>
+          <h1 id="pageTitle">Personalize the page</h1>
+          <p class="intro-copy">Choose how your workspace looks and feels. Changes save automatically on this device.</p>
+        </div>
+
+        <form class="settings-panel" id="preferencesForm">
+          <div class="panel-heading">
+            <p class="eyebrow">DISPLAY</p>
+            <h2>Make it yours</h2>
+          </div>
+
+          <label class="setting-row" for="userName">
+            <span><strong>Your name</strong><small>Save a name for this device</small></span>
+            <input id="userName" name="userName" type="text" placeholder="Enter your name" autocomplete="name">
+          </label>
+
+          <fieldset>
+            <legend>Theme settings</legend>
+            <div class="theme-options">
+              <label class="theme-option">
+                <input type="radio" name="theme" value="linen">
+                <span class="swatch linen" aria-hidden="true"></span>
+                <span><strong>Light</strong><small>Clear and focused</small></span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="sand">
+                <span class="swatch sand" aria-hidden="true"></span>
+                <span><strong>Soft</strong><small>Warm and calm</small></span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="cocoa">
+                <span class="swatch cocoa" aria-hidden="true"></span>
+                <span><strong>Dark</strong><small>Quiet for focus</small></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <label class="setting-row" for="textSize">
+            <span><strong>Font size</strong><small>Adjust the preview text</small></span>
+            <select id="textSize" name="textSize">
+              <option value="small">Small</option>
+              <option value="comfortable">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </label>
+
+          <label class="setting-row toggle-row" for="reduceMotion">
+            <span><strong>Quiet motion</strong><small>Reduce interface movement</small></span>
+            <input class="toggle" type="checkbox" id="reduceMotion" name="reduceMotion">
+          </label>
+
+          <div class="panel-footer">
+            <span class="saved-message" id="savedMessage" role="status" aria-live="polite">Saved locally</span>
+            <div class="button-group">
+              <button type="submit" class="save-button">Save preferences</button>
+              <button type="button" class="reset-button" id="resetButton">Reset</button>
+            </div>
+          </div>
+        </form>
+
+        <section class="session-panel" aria-labelledby="sessionTitle">
+          <p class="eyebrow">CURRENT SESSION</p>
+          <h2 id="sessionTitle">Start a fresh session</h2>
+          <p class="session-copy" id="sessionCopy">This session is fresh.</p>
+          <button type="button" class="session-button" id="sessionButton">Start session</button>
+        </section>
+      </section>
+
+      <section class="storage-panel" aria-labelledby="storageTitle">
+        <p class="eyebrow">BROWSER STORAGE</p>
+        <h2 id="storageTitle">Storage information</h2>
+        <p class="storage-copy">Your preferences stay in this browser and are not sent anywhere.</p>
+        <dl class="storage-details">
+          <div>
+            <dt>Your name</dt>
+            <dd id="storedUserName">Not set</dd>
+          </div>
+          <div>
+            <dt>Preferences</dt>
+            <dd id="preferenceStorageStatus">Waiting to save</dd>
+          </div>
+          <div>
+            <dt>Current session</dt>
+            <dd id="sessionStorageStatus">Not started</dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+
+    <footer class="footer-note">Saved locally on this device</footer>
+  </main>
+</body>
+</html>
