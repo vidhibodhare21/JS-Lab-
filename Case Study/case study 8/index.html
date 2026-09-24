@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for a role | Northline Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="brand-mark" aria-hidden="true">N</div>
+      <p class="eyebrow">Northline Studio / Careers</p>
+      <h1 id="page-title">Build meaningful work with us.</h1>
+      <p class="intro-copy">
+        We are a small, curious team making thoughtful digital products.
+        Tell us a little about yourself and the kind of work you want to do next.
+      </p>
+
+      <div class="role-note">
+        <span class="role-dot" aria-hidden="true"></span>
+        <div>
+          <strong>Open application</strong>
+          <span>Design, engineering, and operations</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-card" aria-labelledby="form-title">
+      <div class="form-heading">
+        <p class="eyebrow">Start here</p>
+        <h2 id="form-title">Your application</h2>
+        <p>Fields marked with <span aria-hidden="true">*</span> are required.</p>
+      </div>
+
+      <form id="application-form" novalidate>
+        <div class="form-grid">
+
+          <div class="section-label field-wide">
+            <span class="section-number">01</span>
+            <div>
+              <strong>About you</strong>
+              <small>Your basic contact details</small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="full-name">
+              Full name <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="full-name"
+              name="fullName"
+              type="text"
+              autocomplete="name"
+              placeholder="Alex Morgan"
+              required
+            >
+            <small class="error-message" id="full-name-error"></small>
+          </div>
+
+          <div class="field">
+            <label for="email">
+              Email address <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="alex@example.com"
+              required
+            >
+            <small class="error-message" id="email-error"></small>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              placeholder="(555) 123-4567"
+            >
+          </div>
+
+          <div class="field">
+            <label for="location">
+              Current location <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="location"
+              name="location"
+              type="text"
+              autocomplete="address-level2"
+              placeholder="City, country"
+              required
+            >
+            <small class="error-message" id="location-error"></small>
+          </div>
+
+          <div class="field">
+            <label for="work-arrangement">
+              Preferred work arrangement <span aria-hidden="true">*</span>
+            </label>
+            <select id="work-arrangement" name="workArrangement" required>
+              <option value="">Select an option</option>
+              <option>Remote</option>
+              <option>Hybrid</option>
+              <option>In the studio</option>
+            </select>
+            <small class="error-message" id="work-arrangement-error"></small>
+          </div>
+
+          <div class="section-label field-wide">
+            <span class="section-number">02</span>
+            <div>
+              <strong>Role details</strong>
+              <small>Help us understand your fit</small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="role">
+              Role you are interested in <span aria-hidden="true">*</span>
+            </label>
+            <select id="role" name="role" required>
+              <option value="">Select a role</option>
+              <option>Product designer</option>
+              <option>Frontend engineer</option>
+              <option>Project coordinator</option>
+              <option>Something else</option>
+            </select>
+            <small class="error-message" id="role-error"></small>
+          </div>
+
+          <div class="field">
+            <label for="experience">
+              Years of relevant experience <span aria-hidden="true">*</span>
+            </label>
+            <select id="experience" name="experience" required>
+              <option value="">Select an option</option>
+              <option>0-2 years</option>
+              <option>3-5 years</option>
+              <option>6-9 years</option>
+              <option>10+ years</option>
+            </select>
+            <small class="error-message" id="experience-error"></small>
+          </div>
+
+          <div class="field">
+            <label for="availability">Earliest start date</label>
+            <input
+              id="availability"
+              name="availability"
+              type="date"
+            >
+          </div>
+
+          <div class="field">
+            <label for="salary">Salary expectations</label>
+            <select id="salary" name="salary">
+              <option value="">Prefer not to say</option>
+              <option>$50,000 - $75,000</option>
+              <option>$75,000 - $100,000</option>
+              <option>$100,000 - $125,000</option>
+              <option>$125,000+</option>
+            </select>
+          </div>
+
+          <div class="field field-wide">
+            <label for="portfolio">Portfolio or LinkedIn URL</label>
+            <input
+              id="portfolio"
+              name="portfolio"
+              type="url"
+              placeholder="https://yourwebsite.com"
+            >
+          </div>
+
+          <div class="field field-wide">
+            <fieldset id="authorization" class="radio-group">
+              <legend>
+                Are you authorized to work where you are applying from?
+                <span aria-hidden="true">*</span>
+              </legend>
+
+              <label class="radio-option">
+                <input type="radio" name="authorization" value="yes" required>
+                <span>Yes</span>
+              </label>
+
+              <label class="radio-option">
+                <input type="radio" name="authorization" value="no">
+                <span>No</span>
+              </label>
+            </fieldset>
+
+            <small class="error-message" id="authorization-error"></small>
+          </div>
+
+          <div class="section-label field-wide">
+            <span class="section-number">03</span>
+            <div>
+              <strong>Your story</strong>
+              <small>Show us what you would bring</small>
+            </div>
+          </div>
+
+          <div class="field field-wide">
+            <label for="resume">
+              Resume <span aria-hidden="true">*</span>
+            </label>
+
+            <label class="file-input" for="resume">
+              <span class="file-icon" aria-hidden="true">+</span>
+              <span id="file-label">
+                Choose a PDF, DOC, or DOCX file
+              </span>
+
+              <input
+                id="resume"
+                name="resume"
+                type="file"
+                accept=".pdf,.doc,.docx"
+                required
+              >
+            </label>
+
+            <small class="error-message" id="resume-error"></small>
+          </div>
+
+          <div class="field field-wide">
+            <div class="label-row">
+              <label for="message">
+                A note for our team <span aria-hidden="true">*</span>
+              </label>
+              <span id="character-count">0 / 500</span>
+            </div>
+
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              maxlength="500"
+              placeholder="What are you excited to work on?"
+              required
+            ></textarea>
+
+            <small class="error-message" id="message-error"></small>
+          </div>
+
+          <div class="field field-wide consent-field">
+            <label class="checkbox-option">
+              <input
+                id="consent"
+                name="consent"
+                type="checkbox"
+                required
+              >
+              <span>
+                I agree that Northline Studio may store and review the
+                information in this application.
+                <span aria-hidden="true">*</span>
+              </span>
+            </label>
+
+            <small class="error-message" id="consent-error"></small>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <p class="privacy-note">
+            Your information is only used to review this application.
+          </p>
+
+          <button type="submit">
+            Send application
+            <span aria-hidden="true">&#8594;</span>
+          </button>
+        </div>
+
+        <div
+          class="success-message"
+          id="success-message"
+          role="status"
+          tabindex="-1"
+          hidden
+        >
+          <strong>Application received.</strong>
+          <span>
+            Thanks for sharing your work. We will be in touch soon.
+          </span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
