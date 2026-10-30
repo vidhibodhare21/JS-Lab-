@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <title>Class Scheduler</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./js/app.js"></script>
+  </head>
+  <body>
+    <main class="scheduler">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">YOUR TIMETABLE</p>
+          <h1>Class scheduler</h1>
+          <p class="student-details">Vidhi Bodhare · PRN 24070521205</p>
+          <p class="subtitle">A little time left until your next class.</p>
+        </div>
+        <div class="live-indicator"><span></span> Live countdown</div>
+      </header>
+
+      <section class="schedule-section" aria-labelledby="upcoming-title">
+        <div class="section-heading">
+          <h2 id="upcoming-title">Upcoming classes</h2>
+          <span id="class-count" class="class-count"></span>
+        </div>
+        <div id="class-list" class="class-list" aria-live="polite"></div>
+      </section>
+
+      <footer class="page-footer">
+        Countdown updates automatically every second.
+      </footer>
+    </main>
+  </body>
+</html>
