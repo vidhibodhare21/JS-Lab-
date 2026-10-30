@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f7f5">
+    <title>Campus events</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Campus events home">
+        <span class="brand-mark" aria-hidden="true">c.</span>
+        <span>campus<span class="brand-light">/events</span></span>
+      </a>
+      <a class="my-events-link" href="#events">
+        My registrations <span id="registration-count" class="count-badge">0</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> YOUR CAMPUS, IN SESSION</p>
+        <h1 id="page-title">Make room for<br><span>something new.</span></h1>
+        <p class="intro-copy">Find your people, learn a skill, or follow a new idea.<br class="desktop-break"> Your next campus moment starts here.</p>
+        <p class="student-details"><strong>Vidhi Bodhare</strong><span>PRN 24070521205</span></p>
+      </section>
+
+      <section class="events-section" id="events" aria-labelledby="events-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE WHAT'S ON</p>
+            <h2 id="events-title">Upcoming events <span id="event-count" class="event-count"></span></h2>
+          </div>
+          <label class="search-wrap">
+            <span class="sr-only">Search events</span>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="Search events..." autocomplete="off">
+            <kbd>/</kbd>
+          </label>
+        </div>
+
+        <div class="subject-filter-section">
+          <p class="filter-label">BROWSE BY SUBJECT</p>
+          <div class="filters subject-filters" aria-label="Filter events by subject">
+            <button class="filter-chip is-active" type="button" data-subject="All" aria-pressed="true">All subjects</button>
+            <button class="filter-chip" type="button" data-subject="CC" aria-pressed="false">CC</button>
+            <button class="filter-chip" type="button" data-subject="DC" aria-pressed="false">DC</button>
+            <button class="filter-chip" type="button" data-subject="CN" aria-pressed="false">CN</button>
+            <button class="filter-chip" type="button" data-subject="JS" aria-pressed="false">JavaScript</button>
+            <button class="filter-chip" type="button" data-subject="College" aria-pressed="false">College</button>
+          </div>
+        </div>
+
+        <p class="filter-label">BROWSE BY EVENT TYPE</p>
+        <div class="filters" aria-label="Filter events by category">
+          <button class="filter-chip is-active" type="button" data-category="All">All events</button>
+          <button class="filter-chip" type="button" data-category="Workshop">Workshops</button>
+          <button class="filter-chip" type="button" data-category="Talk">Talks</button>
+          <button class="filter-chip" type="button" data-category="Social">Social</button>
+          <button class="filter-chip" type="button" data-category="Career">Career</button>
+        </div>
+
+        <p id="status-message" class="status-message" role="status" aria-live="polite">Loading events…</p>
+        <div id="event-list" class="event-grid" aria-live="polite"></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <span aria-hidden="true">◌</span>
+          <h3>No events found</h3>
+          <p>Try a different search or category.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Made for curious minds.</span>
+      <span>See you out there <span aria-hidden="true">↗</span></span>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
