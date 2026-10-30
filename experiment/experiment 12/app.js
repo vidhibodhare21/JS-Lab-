@@ -1,0 +1,183 @@
+$(function () {
+  "use strict";
+
+  const STORAGE_KEY = "campus-events-registrations";
+  const fallbackEvents = [
+    { id: "clay-and-coffee", title: "Clay & Coffee", category: "Workshop", date: "2026-11-04", time: "4:00 PM", location: "Arts Studio, Room 12", description: "Get your hands messy in a relaxed beginner-friendly pottery session.", capacity: 24, registered: 16 },
+    { id: "ideas-that-move", title: "Ideas That Move", category: "Talk", date: "2026-11-07", time: "6:30 PM", location: "Innovation Hall", description: "Three student founders share the first steps behind their big ideas.", capacity: 80, registered: 53 },
+    { id: "midnight-breakfast", title: "Midnight Breakfast Club", category: "Social", date: "2026-11-12", time: "8:00 PM", location: "The Commons", description: "Pancakes, playlists, and good company. Drop in whenever you like.", capacity: 100, registered: 72 },
+    { id: "portfolio-pop-up", title: "Portfolio Pop-up", category: "Career", date: "2026-11-15", time: "1:00 PM", location: "Design Lab", description: "Bring a work in progress and get friendly feedback from local creatives.", capacity: 30, registered: 19 },
+    { id: "build-your-first-bot", title: "Build Your First Bot", category: "Workshop", date: "2026-11-20", time: "3:30 PM", location: "Tech Hub, Lab B", description: "A hands-on introduction to making a tiny bot with beginner-friendly tools.", capacity: 20, registered: 17 },
+    { id: "open-mic-under-stars", title: "Open Mic Under the Stars", category: "Social", date: "2026-11-26", time: "7:00 PM", location: "North Quad", description: "Bring a song, a poem, or just yourself for an easygoing evening outside.", capacity: 60, registered: 31 },
+    { id: "cc-packet-journey", title: "The Packet's Journey", category: "Workshop", subject: "CC", date: "2026-12-02", time: "3:00 PM", location: "Networking Lab", description: "Follow a message through network layers and explore packet switching with a guided demo.", capacity: 28, registered: 14 },
+    { id: "cc-protocols-decoded", title: "Protocols, Decoded", category: "Talk", subject: "CC", date: "2026-12-09", time: "4:00 PM", location: "Lecture Hall 2", description: "See how communication protocols help devices exchange data reliably.", capacity: 45, registered: 21 },
+    { id: "dc-signals-in-action", title: "Signals in Action", category: "Workshop", subject: "DC", date: "2026-12-04", time: "2:30 PM", location: "Electronics Lab", description: "Explore sampling, encoding, and modulation with simple visual signal demos.", capacity: 24, registered: 13 },
+    { id: "dc-noise-and-clarity", title: "Noise, Signals & Clarity", category: "Talk", subject: "DC", date: "2026-12-11", time: "1:30 PM", location: "Lecture Hall 1", description: "Learn how bandwidth, noise, and error detection affect digital communication.", capacity: 50, registered: 27 },
+    { id: "cn-build-a-tiny-network", title: "Build a Tiny Network", category: "Workshop", subject: "CN", date: "2026-12-06", time: "11:00 AM", location: "Tech Hub, Lab A", description: "Practice IP addressing and routing by connecting devices in a network simulator.", capacity: 22, registered: 15 },
+    { id: "cn-routing-roundtable", title: "Routing Roundtable", category: "Talk", subject: "CN", date: "2026-12-13", time: "3:30 PM", location: "Innovation Hall", description: "Trace how routers choose paths and compare common network topologies.", capacity: 40, registered: 18 },
+    { id: "js-dom-detective", title: "JavaScript DOM Detective", category: "Workshop", subject: "JS", date: "2026-12-08", time: "2:00 PM", location: "Computer Lab 3", description: "Build a small interactive page using DOM updates, events, and jQuery.", capacity: 26, registered: 17 },
+    { id: "js-storage-ajax-lab", title: "Storage & AJAX Lab", category: "Workshop", subject: "JS", date: "2026-12-15", time: "3:00 PM", location: "Computer Lab 2", description: "Make a mini app that fetches JSON and remembers a user's choices in localStorage.", capacity: 24, registered: 12 },
+    { id: "diwali-mela", title: "Diwali Mela", category: "Social", subject: "College", date: "2026-11-06", time: "5:00 PM", location: "Main Campus Ground", description: "Celebrate together with festive stalls, food, music, and student performances.", capacity: 300, registered: 142 },
+    { id: "enthusia-6", title: "Enthusia 6.0", category: "Social", subject: "College", date: "2026-11-18", time: "10:00 AM", location: "Campus Auditorium & Grounds", description: "A campus fest day with competitions, performances, creative showcases, and student-led activities.", capacity: 500, registered: 286 }
+  ];
+
+  let events = [];
+  let activeCategory = "All";
+  let activeSubject = "All";
+  let searchTerm = "";
+  let storageWarning = "";
+  let registeredIds = readRegistrations();
+
+  function readRegistrations() {
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "[]");
+      return Array.isArray(saved) ? saved.filter((id) => typeof id === "string") : [];
+    } catch (error) {
+      storageWarning = "Your browser could not load saved registrations. Changes may not persist.";
+      return [];
+    }
+  }
+
+  function showStatus(message) {
+    $("#status-message").text(message);
+  }
+
+  function clearStatus() {
+    $("#status-message").empty();
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(`${dateString}T12:00:00`);
+    return new Intl.DateTimeFormat("en", {
+      month: "short",
+      day: "numeric",
+      weekday: "short"
+    }).format(date);
+  }
+
+  function renderEvents() {
+    const query = searchTerm.toLowerCase();
+    const filtered = events.filter((event) => {
+      const matchesCategory = activeCategory === "All" || event.category === activeCategory;
+      const matchesSubject = activeSubject === "All" || event.subject === activeSubject;
+      const searchableText = `${event.title} ${event.category} ${event.subject || ""} ${event.location} ${event.description}`.toLowerCase();
+      return matchesCategory && matchesSubject && searchableText.includes(query);
+    });
+
+    $("#event-count").text(`(${filtered.length})`);
+    $("#registration-count").text(registeredIds.length);
+    $("#event-list").empty();
+    $("#empty-state").prop("hidden", filtered.length > 0);
+
+    filtered.forEach((event) => {
+      const isRegistered = registeredIds.includes(event.id);
+      const attendeeCount = event.registered + (isRegistered ? 1 : 0);
+      const full = attendeeCount >= event.capacity && !isRegistered;
+      const percentFull = Math.min(100, Math.round((attendeeCount / event.capacity) * 100));
+      const $card = $("<article>", { class: "event-card" });
+      const $top = $("<div>", { class: "card-top" })
+        .append($("<span>", { class: "category-tag" }).text(event.category))
+        .append($("<span>", { class: "date-label" }).text(formatDate(event.date)));
+      if (event.subject) {
+        $top.find(".category-tag").after($("<span>", { class: "subject-tag" }).text(event.subject));
+      }
+      const $button = $("<button>", {
+        class: `register-button${isRegistered ? " is-registered" : ""}`,
+        type: "button",
+        "data-event-id": event.id,
+        disabled: full,
+        "aria-pressed": String(isRegistered)
+      }).text(isRegistered ? "Registered ✓" : full ? "Full" : "Register");
+      const $meta = $("<div>", { class: "event-meta" })
+        .append($("<span>").text(`◷ ${event.time}`))
+        .append($("<span>").text(`⌖ ${event.location}`));
+      const $capacity = $("<div>", { class: "capacity-line" })
+        .append($("<span>").text(`${attendeeCount}/${event.capacity} spots`))
+        .append($("<span>", { class: "capacity-track", "aria-hidden": "true" })
+          .append($("<span>", { class: "capacity-fill" }).css("width", `${percentFull}%`)));
+
+      $card.append(
+        $top,
+        $("<h3>").text(event.title),
+        $("<p>", { class: "event-description" }).text(event.description),
+        $("<div>", { class: "card-bottom" }).append($meta, $button),
+        $capacity
+      );
+      $("#event-list").append($card);
+    });
+  }
+
+  function saveRegistration(eventId) {
+    const wasRegistered = registeredIds.includes(eventId);
+    const nextRegistrations = wasRegistered
+      ? registeredIds.filter((id) => id !== eventId)
+      : [...registeredIds, eventId];
+
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextRegistrations));
+    } catch (error) {
+      showStatus("Could not save your registration. Check your browser storage settings and try again.");
+      return;
+    }
+
+    registeredIds = nextRegistrations;
+    clearStatus();
+    renderEvents();
+    showStatus(wasRegistered ? "Registration cancelled." : "You're registered! Your spot is saved on this device.");
+  }
+
+  $(".filter-chip").on("click", function () {
+    const $button = $(this);
+    if ($button.is("[data-category]")) {
+      activeCategory = $button.data("category");
+      $(".filters[aria-label='Filter events by category'] .filter-chip").removeClass("is-active").attr("aria-pressed", "false");
+    } else {
+      activeSubject = $button.data("subject");
+      $(".subject-filters .filter-chip").removeClass("is-active").attr("aria-pressed", "false");
+    }
+    $button.addClass("is-active").attr("aria-pressed", "true");
+    renderEvents();
+  });
+
+  $("#search-input").on("input", function () {
+    searchTerm = $(this).val().trim();
+    renderEvents();
+  });
+
+  $("#event-list").on("click", ".register-button:not(:disabled)", function () {
+    saveRegistration($(this).data("event-id"));
+  });
+
+  $(document).on("keydown", function (event) {
+    if (event.key === "/" && !$(event.target).is("input, textarea, select")) {
+      event.preventDefault();
+      $("#search-input").trigger("focus");
+    }
+  });
+
+  $.ajax({
+    url: "events.json",
+    dataType: "json",
+    timeout: 5000
+  })
+    .done(function (data) {
+      if (!Array.isArray(data)) {
+        showStatus("The event list could not be loaded. Showing sample events instead.");
+        events = fallbackEvents;
+      } else {
+        events = data;
+        if (storageWarning) {
+          showStatus(storageWarning);
+        } else {
+          clearStatus();
+        }
+      }
+      renderEvents();
+    })
+    .fail(function () {
+      events = fallbackEvents;
+      const feedWarning = "Showing sample events. Run this page through a local web server to load the event feed.";
+      showStatus(storageWarning ? `${feedWarning} ${storageWarning}` : feedWarning);
+      renderEvents();
+    });
+});
